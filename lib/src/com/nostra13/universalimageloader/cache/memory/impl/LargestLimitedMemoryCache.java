@@ -52,6 +52,7 @@ public class LargestLimitedMemoryCache extends LimitedMemoryCache {
 	@Override
 	public boolean put(String key, Bitmap value) {
 		if (super.put(key, value)) {
+		    //保存每个图片的大小
 			valueSizes.put(value, getSize(value));
 			return true;
 		} else {
@@ -79,6 +80,7 @@ public class LargestLimitedMemoryCache extends LimitedMemoryCache {
 		return value.getRowBytes() * value.getHeight();
 	}
 
+	//删除占用内存最大的图片
 	@Override
 	protected Bitmap removeNext() {
 		Integer maxSize = null;
@@ -86,10 +88,10 @@ public class LargestLimitedMemoryCache extends LimitedMemoryCache {
 		Set<Entry<Bitmap, Integer>> entries = valueSizes.entrySet();
 		synchronized (valueSizes) {
 			for (Entry<Bitmap, Integer> entry : entries) {
-				if (largestValue == null) {
+				if (largestValue == null) {//循环第一次
 					largestValue = entry.getKey();
 					maxSize = entry.getValue();
-				} else {
+				} else {//取占用内存最大的Bitmap
 					Integer size = entry.getValue();
 					if (size > maxSize) {
 						maxSize = size;

@@ -15,12 +15,19 @@
  *******************************************************************************/
 package com.nostra13.universalimageloader.sample.activity;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.sample.Constants;
 import com.nostra13.universalimageloader.sample.R;
@@ -29,11 +36,6 @@ import com.nostra13.universalimageloader.sample.fragment.ImageGridFragment;
 import com.nostra13.universalimageloader.sample.fragment.ImageListFragment;
 import com.nostra13.universalimageloader.sample.fragment.ImagePagerFragment;
 import com.nostra13.universalimageloader.utils.L;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
@@ -51,6 +53,16 @@ public class HomeActivity extends Activity {
 		if (!testImageOnSdCard.exists()) {
 			copyTestImageToSdCard(testImageOnSdCard);
 		}
+		
+		findViewById(R.id.button_image_list).setOnClickListener(new OnClickListener() {
+            
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, SimpleImageActivity.class);
+                intent.putExtra(Constants.Extra.FRAGMENT_INDEX, ImageListFragment.INDEX);
+                startActivity(intent);
+            }
+        });
 	}
 
 	public void onImageListClick(View view) {

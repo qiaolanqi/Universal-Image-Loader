@@ -31,16 +31,14 @@ public final class DiskCacheUtils {
 	private DiskCacheUtils() {
 	}
 
-	/** Returns {@link File} of cached image or <b>null</b> if image was not cached in disk cache */
+	/** 硬盘缓存是否有文件 */
 	public static File findInCache(String imageUri, DiskCache diskCache) {
 		File image = diskCache.get(imageUri);
 		return image != null && image.exists() ? image : null;
 	}
 
 	/**
-	 * Removed cached image file from disk cache (if image was cached in disk cache before)
-	 *
-	 * @return <b>true</b> - if cached image file existed and was deleted; <b>false</b> - otherwise.
+	 * 删除硬盘缓存文件成功：硬盘缓存中有这个文件，并且删除成功，返回true
 	 */
 	public static boolean removeFromCache(String imageUri, DiskCache diskCache) {
 		File image = diskCache.get(imageUri);

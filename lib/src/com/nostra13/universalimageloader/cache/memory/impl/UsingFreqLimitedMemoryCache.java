@@ -52,6 +52,7 @@ public class UsingFreqLimitedMemoryCache extends LimitedMemoryCache {
 	@Override
 	public boolean put(String key, Bitmap value) {
 		if (super.put(key, value)) {
+		    //第一次放入时，使用次数为0
 			usingCounts.put(value, 0);
 			return true;
 		} else {
@@ -66,6 +67,7 @@ public class UsingFreqLimitedMemoryCache extends LimitedMemoryCache {
 		if (value != null) {
 			Integer usageCount = usingCounts.get(value);
 			if (usageCount != null) {
+			    //每次get将使用次数+1
 				usingCounts.put(value, usageCount + 1);
 			}
 		}
